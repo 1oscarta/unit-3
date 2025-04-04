@@ -36,20 +36,13 @@ void draw() {
 
   strokeWeight(5);
 
-  if (dist(50, 25, mouseX, mouseY)<100) {
-    stroke(white);
-  } else {
-    stroke(black);
-  }
 
+  stroke(black);
   fill(0);
   rect(0, 0, 200, 600);
   fill(255);
   rect(0, 600, 200, 200);
-  
-  line(50, 650, 150, 650);
-  fill(white);
-  circle(sliderX, 650, 25);
+
 
   tacile(50, 25);
   fill(lred);
@@ -88,9 +81,10 @@ void draw() {
   fill(bgreen);
   rect(50, 437, 100, 25);
   tacile(50, 475);
+  stroke(white);
   fill(black);
   rect(50, 475, 100, 25);
-  stroke(white);
+  stroke(black);
   fill(white);
   ellipse(50, 525, 25, 25);
   fill(selectedColor);
@@ -99,8 +93,13 @@ void draw() {
   ellipse(125, 550, 25, 25);
 
 
+  strokeWeight(shade);
+  line(50, 650, 150, 650);
+  strokeWeight(5);
+  fill(white);
+  circle(sliderX, 650, 25);
 
-  
+
   //tac
   strokeWeight(1);
   image(mrp, 205, 0);
@@ -113,7 +112,7 @@ void draw() {
   fill(black);
   rect(205, 190, 100, 50);
   fill(white);
-  text("load",245,215);
+  text("load", 245, 215);
 }
 
 
@@ -165,7 +164,6 @@ void mouseReleased() {
   if (mouseX < 150 && mouseX > 50 && mouseY < 500 && mouseY > 475) {
     selectedColor = black;
   }
-  //if (mouseX < 150 && mouseX > 50 && mouseY < 237 && mouseY > 212) {
   if (dist(50, 525, mouseX, mouseY)<12.5) {
     fill(white);
     rect(200, 0, 1000, 700);
@@ -187,29 +185,31 @@ void mouseReleased() {
 
 void saveImage (File f) {
   if (f != null) {
-    PImage canvas = get (200, 0, 600, 600);
+    PImage canvas = get (200, 0, 800, 700);
     canvas.save(f.getAbsolutePath());
   }
 }
-  
+
 void openImage(File f) {
   if (f !=null) {
     int n =0;
-    while (n <10) {
-      PImage pic = loadImage(f.getPath());
-      image(pic, 200, 0); 
+    while (n < 50) {
+      PImage pic = loadImage(f.getAbsolutePath());
+      image(pic, 200, 0);
       n = n +1;
     }
   }
 }
 
 void mouseDragged() {
-  if (mrP == false) {
-    stroke(selectedColor);
-    strokeWeight(shade);
-    line(pmouseX, pmouseY, mouseX, mouseY);
-  } else {
-    image(mrp, mouseX, mouseY, 100, 66);
+  if (mouseX > 200) {
+    if (mrP == false) {
+      stroke(selectedColor);
+      strokeWeight(shade);
+      line(pmouseX, pmouseY, mouseX, mouseY);
+    } else {
+      image(mrp, mouseX, mouseY, shade/0.06, shade/0.1);
+    }
   }
   controlSlider();
 }
